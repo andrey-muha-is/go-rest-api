@@ -1,7 +1,8 @@
 FROM golang:latest
 # Download app dependencies
 RUN go get github.com/go-chi/chi
-RUN go get github.com/go-chi/render
+RUN go get github.com/jmoiron/sqlx
+RUN go get github.com/go-sql-driver/mysql
 
 RUN mkdir /app
 ADD ./src /app/
