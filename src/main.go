@@ -27,11 +27,15 @@ func main() {
 	
 	channelsRepository := repositories.NewChannelsRepository(db, appConfig.DbChannelsTable)
 	channelsHandler := handlers.NewChannelsHandler(channelsRepository)
+	programsRepository := repositories.NewProgramsRepository(db, appConfig.DbProgramsTable)
+	programsHandler := handlers.NewProgramsHandler(programsRepository)
 
 	r := chi.NewRouter()
 
 	r.Get("/channels", channelsHandler.FindAll)
 	r.Get("/channels/{channelID}", channelsHandler.FindById)
+	r.Get("/channels/{channelID}/programs", programsHandler.FindByChannelId)
+	r.Get("/programs", programsHandler.FindAll)
 
 	http.ListenAndServe(fmt.Sprintf(":%s", appConfig.AppPort), r)
 }

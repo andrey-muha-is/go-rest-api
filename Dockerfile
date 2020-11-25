@@ -4,6 +4,7 @@ RUN go get github.com/joho/godotenv
 RUN go get github.com/go-chi/chi
 RUN go get github.com/jmoiron/sqlx
 RUN go get github.com/go-sql-driver/mysql
+RUN go get github.com/guregu/null
 
 RUN mkdir /app
 ADD ./src /app/
