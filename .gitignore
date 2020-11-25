@@ -17,3 +17,6 @@
 # editors
 .vscode
 .idea
+
+# Environment variables
+.env
