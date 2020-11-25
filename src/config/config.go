@@ -1,7 +1,7 @@
 package config
 
 import (
-	"log"
+	"go.uber.org/zap"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -22,7 +22,7 @@ type AppConfig struct {
 func GetAppConfig() AppConfig {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		zap.S().Error("Error loading .env file")
 	}
 
 	config := AppConfig{
@@ -42,7 +42,7 @@ func GetAppConfig() AppConfig {
 func getEnvWithFallback(envVariableKey string, fallbackValue string) string {
 	value, ok := os.LookupEnv(envVariableKey)
 	if !ok {
-		log.Fatalf("Error loading env variable %s. Using fallback value = %s", envVariableKey, fallbackValue)
+		zap.S().Errorf("Error loading env variable %s. Using fallback value = %s", envVariableKey, fallbackValue)
 		return fallbackValue
 	}
 	return value

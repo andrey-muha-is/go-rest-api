@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"go.uber.org/zap"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 
@@ -23,6 +24,7 @@ func (p *ProgramsRepository) FindAll() (*m.ProgramsResponse, error) {
 	err := p.db.Select(&programs, query)
 	
 	if err != nil {
+		zap.S().Errorf("Error fetching programs. Error: %s", err)
 		return nil, err
 	}
 
@@ -38,6 +40,7 @@ func (p *ProgramsRepository) FindByChannelId(channelID string) (*m.ProgramsRespo
 	err := p.db.Select(&programs, query, channelID)
 
 	if err != nil {
+		zap.S().Errorf("Error fetching programs for channel_id=%s. Error: %s", channelID, err)
 		return nil, err
 	}
 

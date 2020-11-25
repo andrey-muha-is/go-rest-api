@@ -8,6 +8,7 @@ import (
 	"../repositories"
 	"../utils"
 	"github.com/go-chi/chi"
+	"go.uber.org/zap"
 )
 
 type ProgramsHandler struct {
@@ -19,6 +20,7 @@ func NewProgramsHandler(repository *repositories.ProgramsRepository) *ProgramsHa
 }
 
 func (cs *ProgramsHandler) FindAll(w http.ResponseWriter, r *http.Request) {
+	zap.S().Debugf("%s: fetch all programs", r.Method)
 	data, err := cs.repository.FindAll()
 
 	if err != nil {
@@ -32,6 +34,7 @@ func (cs *ProgramsHandler) FindAll(w http.ResponseWriter, r *http.Request) {
 
 func (cs *ProgramsHandler) FindByChannelId(w http.ResponseWriter, r *http.Request) {
 	channelID := chi.URLParam(r, "channelID")
+	zap.S().Debugf("%s: fetch programs with channel_id=%s", r.Method, channelID)
 	data, err := cs.repository.FindByChannelId(channelID)
 
 	if err != nil {

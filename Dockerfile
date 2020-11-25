@@ -5,6 +5,7 @@ RUN go get github.com/go-chi/chi
 RUN go get github.com/jmoiron/sqlx
 RUN go get github.com/go-sql-driver/mysql
 RUN go get github.com/guregu/null
+RUN go get -u go.uber.org/zap
 
 RUN mkdir /app
 ADD ./src /app/

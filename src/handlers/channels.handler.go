@@ -8,6 +8,7 @@ import (
 	"../repositories"
 	"../utils"
 	"github.com/go-chi/chi"
+	"go.uber.org/zap"
 )
 
 type ChannelsHandler struct {
@@ -19,6 +20,8 @@ func NewChannelsHandler(repository *repositories.ChannelsRepository) *ChannelsHa
 }
 
 func (cs *ChannelsHandler) FindAll(w http.ResponseWriter, r *http.Request) {
+	zap.S().Debugf("%s: fetch all channels", r.Method)
+
 	data, err := cs.repository.FindAll()
 
 	if err != nil {
@@ -32,6 +35,7 @@ func (cs *ChannelsHandler) FindAll(w http.ResponseWriter, r *http.Request) {
 
 func (cs *ChannelsHandler) FindById(w http.ResponseWriter, r *http.Request) {
 	channelID := chi.URLParam(r, "channelID")
+	zap.S().Debugf("%s: fetch channel with id = %s", r.Method, channelID)
 	data, err := cs.repository.FindById(channelID)
 
 	if err != nil {
